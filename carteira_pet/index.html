@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Carteira Pet</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background:#fff5f7;
+    display:flex;
+    color:#333;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:260px;
+    min-height:100vh;
+    background:#ffffff;
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border-right:1px solid #f3d9df;
+}
+
+.logo h1{
+    color:#ff6b81;
+    font-size:38px;
+    line-height:45px;
+}
+
+.logo p{
+    margin-top:10px;
+    color:#777;
+    font-size:15px;
+}
+
+.menu{
+    margin-top:40px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.menu a{
+    text-decoration:none;
+    color:#555;
+    padding:14px 18px;
+    border-radius:14px;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.menu a:hover,
+.menu .active{
+    background:#ffe3e8;
+    color:#ff6b81;
+}
+
+.reminder{
+    background:#ffecef;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+}
+
+.reminder h3{
+    color:#ff6b81;
+    margin:10px 0;
+}
+
+.reminder p{
+    color:#666;
+    font-size:14px;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    padding:30px;
+}
+
+/* TOP */
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.top h2{
+    font-size:50px;
+    color:#2d3436;
+}
+
+.top p{
+    color:#777;
+    margin-top:5px;
+}
+
+.notificacao{
+    font-size:28px;
+}
+
+/* PET CARD */
+
+.pet-card{
+    background:white;
+    border-radius:28px;
+    padding:35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    box-shadow:0 5px 20px rgba(255,107,129,0.06);
+}
+
+.pet-info{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.pet-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #ffe3e8;
+}
+
+.pet-text h3{
+    color:#ff6b81;
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.pet-text p{
+    color:#666;
+    margin-bottom:6px;
+    font-size:18px;
+}
+
+.petshop{
+    text-align:right;
+}
+
+.petshop h3{
+    color:#ff6b81;
+    margin-bottom:10px;
+    font-size:32px;
+}
+
+.petshop p{
+    color:#666;
+    margin-bottom:5px;
+    font-size:17px;
+}
+
+/* ALERTA */
+
+.alerta{
+    background:#fff1f2;
+    border:2px solid #ffc5cf;
+    border-radius:24px;
+    padding:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.alerta-left{
+    display:flex;
+    gap:18px;
+    align-items:center;
+}
+
+.alerta-icon{
+    font-size:38px;
+}
+
+.alerta h3{
+    color:#ff6b81;
+    font-size:34px;
+    margin-bottom:5px;
+}
+
+.alerta p{
+    color:#666;
+    font-size:18px;
+}
+
+.alerta-data{
+    display:flex;
+    gap:30px;
+    font-weight:600;
+    color:#444;
+    font-size:18px;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:25px;
+}
+
+/* CARDS */
+
+.card{
+    background:white;
+    border-radius:28px;
+    padding:30px;
+    box-shadow:0 5px 20px rgba(255,107,129,0.06);
+}
+
+.card-title{
+    color:#ff6b81;
+    font-size:36px;
+    margin-bottom:25px;
+}
+
+/* VACINA */
+
+.vacina-box{
+    background:#fff7f8;
+    border:2px solid #ffd2db;
+    border-radius:22px;
+    padding:25px;
+}
+
+.vacina-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.vacina-left{
+    display:flex;
+    align-items:center;
+}
+
+.badge{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#ff6b81;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:700;
+}
+
+.vacina-info{
+    margin-left:20px;
+}
+
+.vacina-info h4{
+    font-size:34px;
+    color:#2d3436;
+    margin-bottom:8px;
+}
+
+.vacina-info p{
+    color:#666;
+    font-size:17px;
+}
+
+.status{
+    background:#ffe3e8;
+    color:#ff4d6d;
+    padding:10px 18px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.details{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    border-top:1px solid #eee;
+    padding-top:20px;
+}
+
+.details h5{
+    color:#777;
+    margin-bottom:8px;
+}
+
+.details p{
+    color:#2d3436;
+    font-weight:600;
+    font-size:18px;
+}
+
+.importante{
+    background:#ffecef;
+    padding:22px;
+    border-radius:18px;
+    margin-top:20px;
+}
+
+.importante h4{
+    color:#ff6b81;
+    margin-bottom:10px;
+}
+
+.importante p{
+    color:#555;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#444;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:16px;
+    border-radius:14px;
+    border:1px solid #ffd2db;
+    font-size:15px;
+}
+
+input:focus{
+    outline:none;
+    border:1px solid #ff6b81;
+}
+
+button{
+    width:100%;
+    padding:17px;
+    border:none;
+    border-radius:16px;
+    background:#ff6b81;
+    color:white;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:10px;
+    box-shadow:0 5px 15px rgba(255,107,129,0.2);
+}
+
+button:hover{
+    background:#ff4d6d;
+}
+
+.confirmacao{
+    margin-top:15px;
+    color:#ff6b81;
+    font-size:14px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1100px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .pet-card{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:30px;
+    }
+
+}
+
+@media(max-width:800px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+        min-height:auto;
+    }
+
+    .top h2{
+        font-size:36px;
+    }
+
+    .alerta{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .details{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+
+<aside class="menu">
+
+    <div>
+
+        <div class="logo">
+            <h1>🐾 Carteira Pet</h1>
+            <p>Controle de Vacinação</p>
+        </div>
+
+        <nav class="menu">
+            <a href="#" class="active">🏠 Início</a>
+            <a href="#">💉 Vacinas</a>
+            <a href="#">📋 Histórico</a>
+            <a href="#">📅 Agendamentos</a>
+            <a href="#">🐶 Perfil</a>
+            <a href="#">⚙️ Configurações</a>
+        </nav>
+
+    </div>
+
+    <div class="reminder">
+
+        <div style="font-size:45px;">🔔</div>
+
+        <h3>Lembrete Ativado</h3>
+
+        <p>
+            Você será avisado quando a vacina estiver próxima do vencimento.
+        </p>
+
+    </div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <div class="top">
+
+        <div>
+            <h2>Carteira de Vacinação</h2>
+            <p>Controle completo da saúde do seu pet 💖</p>
+        </div>
+
+        <div class="notificacao">
+            🔔
+        </div>
+
+    </div>
+
+    <!-- PET -->
+
+    <section class="pet-card">
+
+        <div class="pet-info">
+
+            <img
+            class="pet-img"
+            src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=600&auto=format&fit=crop"
+            alt="Dog">
+
+            <div class="pet-text">
+
+                <h3>Thor 🐾</h3>
+
+                <p>Golden Retriever</p>
+                <p>♂ Macho</p>
+                <p>📅 3 anos</p>
+                <p>⚖️ 28kg</p>
+                <p>👩 Dona: Lara Dias</p>
+
+            </div>
+
+        </div>
+
+        <div class="petshop">
+
+            <h3>Carteira Pet</h3>
+
+            <p>Uberlândia - MG</p>
+            <p>(34) 99999-9999</p>
+
+        </div>
+
+    </section>
+
+    <!-- ALERTA -->
+
+    <section class="alerta">
+
+        <div class="alerta-left">
+
+            <div class="alerta-icon">⚠️</div>
+
+            <div>
+
+                <h3>Vacina próxima do vencimento</h3>
+
+                <p>
+                    A vacina V10 está próxima da data de renovação.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="alerta-data">
+
+            <div>📅 25/05/2026</div>
+            <div>🕘 10:00</div>
+
+        </div>
+
+    </section>
+
+    <!-- GRID -->
+
+    <div class="grid">
+
+        <!-- VACINA -->
+
+        <div class="card">
+
+            <h3 class="card-title">
+                💉 Detalhes da Vacina
+            </h3>
+
+            <div class="vacina-box">
+
+                <div class="vacina-top">
+
+                    <div class="vacina-left">
+
+                        <div class="badge">
+                            V10
+                        </div>
+
+                        <div class="vacina-info">
+
+                            <h4>Vacina Polivalente</h4>
+
+                            <p>
+                                Proteção contra cinomose,
+                                parvovirose e outras doenças.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="status">
+                        PRÓXIMA
+                    </div>
+
+                </div>
+
+                <div class="details">
+
+                    <div>
+                        <h5>Aplicação</h5>
+                        <p>25/05/2025</p>
+                    </div>
+
+                    <div>
+                        <h5>Vencimento</h5>
+                        <p style="color:#ff4d6d;">25/05/2026</p>
+                    </div>
+
+                    <div>
+                        <h5>Lote</h5>
+                        <p>2548A</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="importante">
+
+                <h4>ℹ️ Importante</h4>
+
+                <p>
+                    Mantenha a vacinação do seu pet em dia para garantir proteção e saúde.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- AGENDAMENTO -->
+
+        <div class="card">
+
+            <h3 class="card-title">
+                📅 Agendar Vacina
+            </h3>
+
+            <div class="form-group">
+                <label>Nome da vacina</label>
+                <input type="text" placeholder="Digite a vacina">
+            </div>
+
+            <div class="form-group">
+                <label>Data</label>
+                <input type="date">
+            </div>
+
+            <div class="form-group">
+                <label>Horário</label>
+                <input type="time">
+            </div>
+
+            <button>
+                Confirmar Agendamento
+            </button>
+
+            <div class="confirmacao">
+                ✔ O cliente receberá um aviso automaticamente.
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
