@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login - Carteira Pet</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f6f7f6;
+overflow:hidden;
+}
+
+/* FUNDO */
+
+.bg{
+position:absolute;
+width:100%;
+height:100%;
+background:
+linear-gradient(135deg,#12922c 0%, #0f7c24 100%);
+clip-path:circle(35% at right 20%);
+z-index:-1;
+}
+
+/* CARD LOGIN */
+
+.container{
+width:950px;
+height:600px;
+background:white;
+border-radius:35px;
+overflow:hidden;
+display:flex;
+box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+/* LADO ESQUERDO */
+
+.left{
+width:50%;
+background:#12922c;
+color:white;
+padding:50px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.logo{
+width:120px;
+height:120px;
+border-radius:30px;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:55px;
+color:#12922c;
+margin-bottom:30px;
+}
+
+.left h1{
+font-size:52px;
+margin-bottom:15px;
+}
+
+.left p{
+font-size:18px;
+line-height:32px;
+max-width:380px;
+}
+
+/* LADO DIREITO */
+
+.right{
+width:50%;
+padding:60px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.right h2{
+font-size:42px;
+color:#12922c;
+margin-bottom:10px;
+}
+
+.right p{
+color:#666;
+margin-bottom:35px;
+}
+
+/* INPUTS */
+
+.form-group{
+margin-bottom:22px;
+}
+
+label{
+display:block;
+margin-bottom:10px;
+font-weight:500;
+color:#333;
+}
+
+.input-box{
+position:relative;
+}
+
+.input-box i{
+position:absolute;
+left:18px;
+top:50%;
+transform:translateY(-50%);
+color:#12922c;
+font-size:18px;
+}
+
+input{
+width:100%;
+padding:18px 18px 18px 50px;
+border-radius:15px;
+border:1px solid #ddd;
+font-size:16px;
+outline:none;
+transition:.3s;
+}
+
+input:focus{
+border-color:#12922c;
+box-shadow:0 0 0 4px rgba(18,146,44,.1);
+}
+
+/* BOTÃO */
+
+button{
+width:100%;
+padding:18px;
+background:#12922c;
+border:none;
+border-radius:15px;
+color:white;
+font-size:18px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+margin-top:10px;
+}
+
+button:hover{
+background:#0f7c24;
+}
+
+/* LINKS */
+
+.links{
+margin-top:25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.links a{
+text-decoration:none;
+color:#12922c;
+font-weight:500;
+}
+
+.create-account{
+margin-top:35px;
+text-align:center;
+}
+
+.create-account a{
+color:#12922c;
+font-weight:600;
+text-decoration:none;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+.container{
+width:95%;
+height:auto;
+flex-direction:column;
+}
+
+.left{
+width:100%;
+padding:40px;
+}
+
+.right{
+width:100%;
+padding:40px;
+}
+
+.left h1{
+font-size:38px;
+}
+
+.right h2{
+font-size:34px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="container">
+
+<!-- ESQUERDA -->
+
+<div class="left">
+
+<div class="logo">
+
+<i class="fa-solid fa-paw"></i>
+
+</div>
+
+<h1>Carteira Pet</h1>
+
+<p>
+
+Controle inteligente da vacinação do seu pet.
+Acompanhe vacinas, agendamentos e mantenha a saúde do seu animal sempre protegida.
+
+</p>
+
+</div>
+
+<!-- DIREITA -->
+
+<div class="right">
+
+<h2>Bem-vindo</h2>
+
+<p>
+Faça login para acessar o sistema
+</p>
+
+<form action="index.html">
+
+<!-- EMAIL -->
+
+<div class="form-group">
+
+<label>Email</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-envelope"></i>
+
+<input
+type="email"
+placeholder="Digite seu email"
+required
+>
+
+</div>
+
+</div>
+
+<!-- SENHA -->
+
+<div class="form-group">
+
+<label>Senha</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+type="password"
+placeholder="Digite sua senha"
+required
+>
+
+</div>
+
+</div>
+
+<!-- BOTÃO -->
+
+<button type="submit">
+
+Entrar
+
+</button>
+
+<!-- LINKS -->
+
+<div class="links">
+
+<a href="#">
+Esqueceu sua senha?
+</a>
+
+<a href="#">
+Suporte
+</a>
+
+</div>
+
+<!-- CRIAR CONTA -->
+
+<div class="create-account">
+
+<p>
+
+Não possui conta?
+
+<a href="#">
+
+Criar conta
+
+</a>
+
+</p>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>
