@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Configurações - Carteira Pet</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+background:#f6f7f6;
+color:#333;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:320px;
+min-height:100vh;
+background:white;
+padding:25px;
+border-right:1px solid #eee;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.logo{
+display:flex;
+align-items:flex-start;
+gap:18px;
+margin-bottom:45px;
+}
+
+.logo-icon{
+width:80px;
+height:80px;
+border-radius:22px;
+background:#eaf5ea;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+color:#12922c;
+}
+
+.logo-text h1{
+font-size:33px;
+color:#12922c;
+}
+
+.logo-text p{
+font-size:18px;
+color:#666;
+margin-top:6px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.menu a{
+text-decoration:none;
+color:#222;
+padding:20px;
+border-radius:18px;
+display:flex;
+gap:18px;
+align-items:center;
+font-size:20px;
+transition:.3s;
+}
+
+.menu a:hover{
+background:#edf7ed;
+}
+
+.menu a i{
+color:#12922c;
+font-size:24px;
+}
+
+.menu .active{
+background:#edf7ed;
+font-weight:600;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:35px;
+}
+
+.top{
+margin-bottom:35px;
+}
+
+.top h1{
+font-size:52px;
+color:#000;
+}
+
+.top p{
+color:#666;
+margin-top:10px;
+font-size:18px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+min-height:520px;
+}
+
+.card-title{
+display:flex;
+align-items:center;
+gap:15px;
+font-size:28px;
+margin-bottom:30px;
+color:#12922c;
+}
+
+.card-title i{
+background:#edf7ed;
+padding:15px;
+border-radius:15px;
+}
+
+/* INPUTS */
+
+.form-group{
+margin-bottom:22px;
+}
+
+label{
+display:block;
+margin-bottom:10px;
+font-weight:500;
+}
+
+input,
+select{
+width:100%;
+padding:18px;
+border-radius:15px;
+border:1px solid #ddd;
+font-size:16px;
+outline:none;
+transition:.3s;
+}
+
+input:focus,
+select:focus{
+border-color:#12922c;
+box-shadow:0 0 0 4px rgba(18,146,44,.1);
+}
+
+/* SWITCH */
+
+.switch{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 0;
+border-bottom:1px solid #eee;
+}
+
+.switch:last-child{
+border:none;
+}
+
+.toggle{
+width:60px;
+height:32px;
+background:#12922c;
+border-radius:30px;
+position:relative;
+cursor:pointer;
+}
+
+.toggle::before{
+content:'';
+position:absolute;
+width:24px;
+height:24px;
+background:white;
+border-radius:50%;
+top:4px;
+left:32px;
+}
+
+/* BUTTON */
+
+button{
+width:100%;
+padding:18px;
+border:none;
+border-radius:15px;
+background:#12922c;
+color:white;
+font-size:18px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+margin-top:auto;
+}
+
+button:hover{
+background:#0f7c24;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1000px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+display:none;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div>
+
+<div class="logo">
+
+<div class="logo-icon">
+<i class="fa-solid fa-paw"></i>
+</div>
+
+<div class="logo-text">
+<h1>Carteira Pet</h1>
+<p>Controle inteligente pet</p>
+</div>
+
+</div>
+
+<nav class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-house"></i>
+Início
+</a>
+
+<a href="vacinas.html">
+<i class="fa-solid fa-syringe"></i>
+Vacinas
+</a>
+
+<a href="historico.html">
+<i class="fa-solid fa-file-medical"></i>
+Histórico
+</a>
+
+<a href="agendamentos.html">
+<i class="fa-solid fa-calendar-days"></i>
+Agendamentos
+</a>
+
+<a href="perfil.html">
+<i class="fa-solid fa-dog"></i>
+Perfil do Pet
+</a>
+
+<a class="active" href="configuracoes.html">
+<i class="fa-solid fa-gear"></i>
+Configurações
+</a>
+
+</nav>
+
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<div class="top">
+
+<h1>Configurações</h1>
+
+<p>
+Gerencie suas preferências e notificações do sistema.
+</p>
+
+</div>
+
+<div class="grid">
+
+<!-- PERFIL -->
+
+<div class="card">
+
+<div>
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-user"></i>
+
+Dados do Usuário
+
+</h2>
+
+<div class="form-group">
+
+<label>Nome</label>
+
+<input type="text" value="Lara Dias">
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" value="lara@email.com">
+
+</div>
+
+<div class="form-group">
+
+<label>Telefone</label>
+
+<input type="text" value="(34)99999-9999">
+
+</div>
+
+<div class="form-group">
+
+<label>Cidade</label>
+
+<input type="text" value="Uberlândia - MG">
+
+</div>
+
+</div>
+
+<button>
+
+Salvar Alterações
+
+</button>
+
+</div>
+
+<!-- NOTIFICAÇÕES -->
+
+<div class="card">
+
+<div>
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-bell"></i>
+
+Notificações
+
+</h2>
+
+<div class="switch">
+
+<div>
+
+<h3>Lembrete de Vacinas</h3>
+
+<p>Receber alertas automáticos</p>
+
+</div>
+
+<div class="toggle"></div>
+
+</div>
+
+<div class="switch">
+
+<div>
+
+<h3>Agendamentos</h3>
+
+<p>Receber aviso de consultas</p>
+
+</div>
+
+<div class="toggle"></div>
+
+</div>
+
+<div class="switch">
+
+<div>
+
+<h3>Email Marketing</h3>
+
+<p>Novidades da plataforma</p>
+
+</div>
+
+<div class="toggle"></div>
+
+</div>
+
+<div class="switch">
+
+<div>
+
+<h3>Modo Escuro</h3>
+
+<p>Ativar tema dark</p>
+
+</div>
+
+<div class="toggle"></div>
+
+</div>
+
+</div>
+
+<button>
+
+Salvar Preferências
+
+</button>
+
+</div>
+
+<!-- SEGURANÇA -->
+
+<div class="card">
+
+<div>
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-lock"></i>
+
+Segurança
+
+</h2>
+
+<div class="form-group">
+
+<label>Senha Atual</label>
+
+<input type="password">
+
+</div>
+
+<div class="form-group">
+
+<label>Nova Senha</label>
+
+<input type="password">
+
+</div>
+
+<div class="form-group">
+
+<label>Confirmar Senha</label>
+
+<input type="password">
+
+</div>
+
+</div>
+
+<button>
+
+Alterar Senha
+
+</button>
+
+</div>
+
+<!-- SISTEMA -->
+
+<div class="card">
+
+<div>
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-sliders"></i>
+
+Preferências do Sistema
+
+</h2>
+
+<div class="form-group">
+
+<label>Idioma</label>
+
+<select>
+<option>Português</option>
+<option>English</option>
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Formato de Data</label>
+
+<select>
+<option>DD/MM/AAAA</option>
+<option>MM/DD/AAAA</option>
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Fuso Horário</label>
+
+<select>
+<option>Brasília (GMT-3)</option>
+</select>
+
+</div>
+
+</div>
+
+<button>
+
+Salvar Configurações
+
+</button>
+
+</div>
+
+</div>
+
+</main>
+
+</body>
+</html>
