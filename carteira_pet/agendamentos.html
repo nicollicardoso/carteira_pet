@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Agendamentos - Carteira Pet</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+background:#f6f7f6;
+color:#333;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:320px;
+min-height:100vh;
+background:white;
+padding:25px;
+border-right:1px solid #eee;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.logo{
+display:flex;
+align-items:flex-start;
+gap:18px;
+margin-bottom:45px;
+}
+
+.logo-icon{
+width:80px;
+height:80px;
+border-radius:22px;
+background:#eaf5ea;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+color:#12922c;
+}
+
+.logo-text h1{
+font-size:33px;
+color:#12922c;
+}
+
+.logo-text p{
+font-size:18px;
+color:#666;
+margin-top:6px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.menu a{
+text-decoration:none;
+color:#222;
+padding:20px;
+border-radius:18px;
+display:flex;
+gap:18px;
+align-items:center;
+font-size:20px;
+transition:.3s;
+}
+
+.menu a:hover{
+background:#edf7ed;
+}
+
+.menu a i{
+color:#12922c;
+font-size:24px;
+}
+
+.menu .active{
+background:#edf7ed;
+font-weight:600;
+}
+
+/* REMINDER */
+
+.reminder{
+padding:25px;
+border-radius:28px;
+background:#eef7ee;
+border:1px solid #92d592;
+text-align:center;
+}
+
+.reminder-icon{
+width:85px;
+height:85px;
+background:white;
+margin:auto;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:35px;
+color:#12922c;
+margin-bottom:25px;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.reminder h2{
+color:#12922c;
+margin-bottom:10px;
+}
+
+.reminder p{
+color:#555;
+line-height:30px;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:35px;
+}
+
+/* TOP */
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.top h1{
+font-size:55px;
+color:#000;
+}
+
+.top p{
+margin-top:10px;
+font-size:18px;
+color:#666;
+}
+
+/* GRID */
+
+.grid{
+display:flex;
+flex-direction:column;
+gap:25px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.card-title{
+display:flex;
+align-items:center;
+gap:15px;
+font-size:28px;
+margin-bottom:30px;
+color:#12922c;
+}
+
+.card-title i{
+background:#edf7ed;
+padding:15px;
+border-radius:15px;
+}
+
+/* APPOINTMENTS */
+
+.appointment-list{
+display:flex;
+flex-direction:column;
+gap:25px;
+}
+
+.appointment{
+border:1px solid #e8e8e8;
+padding:25px;
+border-radius:22px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+transition:.3s;
+}
+
+.appointment:hover{
+transform:translateY(-4px);
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.app-left{
+display:flex;
+align-items:center;
+gap:22px;
+}
+
+.app-icon{
+width:80px;
+height:80px;
+border-radius:20px;
+background:#12922c;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+}
+
+.app-info h2{
+font-size:28px;
+margin-bottom:8px;
+}
+
+.app-info p{
+color:#666;
+font-size:16px;
+line-height:28px;
+}
+
+/* DATE */
+
+.date-box{
+text-align:center;
+background:#f8f8f8;
+padding:18px 22px;
+border-radius:18px;
+min-width:140px;
+}
+
+.date-box p{
+color:#777;
+margin-bottom:8px;
+}
+
+.date-box h3{
+font-size:24px;
+}
+
+/* STATUS */
+
+.status{
+padding:14px 22px;
+border-radius:14px;
+font-weight:600;
+font-size:14px;
+}
+
+.pending{
+background:#fff6eb;
+color:#ff9800;
+}
+
+.confirmed{
+background:#edf7ed;
+color:#12922c;
+}
+
+/* FORM */
+
+.form-group{
+margin-bottom:22px;
+}
+
+label{
+display:block;
+margin-bottom:10px;
+font-weight:500;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:18px;
+border-radius:15px;
+border:1px solid #ddd;
+font-size:16px;
+outline:none;
+transition:.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+border-color:#12922c;
+box-shadow:0 0 0 4px rgba(18,146,44,.1);
+}
+
+textarea{
+resize:none;
+height:120px;
+}
+
+/* BUTTON */
+
+button{
+width:100%;
+padding:18px;
+border:none;
+border-radius:15px;
+background:#12922c;
+color:white;
+font-size:18px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+margin-top:10px;
+}
+
+button:hover{
+background:#0f7c24;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1200px){
+
+.appointment{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+}
+
+@media(max-width:900px){
+
+.sidebar{
+display:none;
+}
+
+.top{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div>
+
+<div class="logo">
+
+<div class="logo-icon">
+<i class="fa-solid fa-paw"></i>
+</div>
+
+<div class="logo-text">
+<h1>Carteira Pet</h1>
+<p>Controle inteligente pet</p>
+</div>
+
+</div>
+
+<nav class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-house"></i>
+Início
+</a>
+
+<a href="vacinas.html">
+<i class="fa-solid fa-syringe"></i>
+Vacinas
+</a>
+
+<a href="historico.html">
+<i class="fa-solid fa-file-medical"></i>
+Histórico
+</a>
+
+<a class="active" href="agendamentos.html">
+<i class="fa-solid fa-calendar-days"></i>
+Agendamentos
+</a>
+
+<a href="perfilpet.html">
+<i class="fa-solid fa-dog"></i>
+Perfil do Pet
+</a>
+
+<a href="configuracoes.html">
+<i class="fa-solid fa-gear"></i>
+Configurações
+</a>
+
+</nav>
+
+</div>
+
+<div class="reminder">
+
+<div class="reminder-icon">
+<i class="fa-solid fa-bell"></i>
+</div>
+
+<h2>Agenda Inteligente</h2>
+
+<p>
+
+Receba notificações automáticas sobre consultas e reforços de vacinas.
+
+</p>
+
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<!-- TOP -->
+
+<div class="top">
+
+<div>
+
+<h1>Agendamentos</h1>
+
+<p>
+Gerencie consultas e aplicações de vacinas
+</p>
+
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid">
+
+<!-- LISTA -->
+
+<div class="card">
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-calendar-check"></i>
+
+Próximos Agendamentos
+
+</h2>
+
+<div class="appointment-list">
+
+<!-- ITEM -->
+
+<div class="appointment">
+
+<div class="app-left">
+
+<div class="app-icon">
+<i class="fa-solid fa-syringe"></i>
+</div>
+
+<div class="app-info">
+
+<h2>Vacina V10</h2>
+
+<p>
+Reforço anual da vacina polivalente
+</p>
+
+</div>
+
+</div>
+
+<div class="date-box">
+
+<p>Data</p>
+
+<h3>25/05</h3>
+
+</div>
+
+<div class="date-box">
+
+<p>Horário</p>
+
+<h3>10:00</h3>
+
+</div>
+
+<div class="status pending">
+
+PENDENTE
+
+</div>
+
+</div>
+
+<!-- ITEM -->
+
+<div class="appointment">
+
+<div class="app-left">
+
+<div class="app-icon">
+<i class="fa-solid fa-stethoscope"></i>
+</div>
+
+<div class="app-info">
+
+<h2>Consulta Veterinária</h2>
+
+<p>
+Avaliação geral do pet
+</p>
+
+</div>
+
+</div>
+
+<div class="date-box">
+
+<p>Data</p>
+
+<h3>02/06</h3>
+
+</div>
+
+<div class="date-box">
+
+<p>Horário</p>
+
+<h3>14:30</h3>
+
+</div>
+
+<div class="status confirmed">
+
+CONFIRMADO
+
+</div>
+
+</div>
+
+<!-- ITEM -->
+
+<div class="appointment">
+
+<div class="app-left">
+
+<div class="app-icon">
+<i class="fa-solid fa-shield-dog"></i>
+</div>
+
+<div class="app-info">
+
+<h2>Antirrábica</h2>
+
+<p>
+Aplicação anual obrigatória
+</p>
+
+</div>
+
+</div>
+
+<div class="date-box">
+
+<p>Data</p>
+
+<h3>18/06</h3>
+
+</div>
+
+<div class="date-box">
+
+<p>Horário</p>
+
+<h3>09:00</h3>
+
+</div>
+
+<div class="status pending">
+
+PENDENTE
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FORM -->
+
+<div class="card">
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-plus"></i>
+
+Novo Agendamento
+
+</h2>
+
+<div class="form-group">
+
+<label>Tipo</label>
+
+<select>
+<option>Vacina</option>
+<option>Consulta</option>
+<option>Exame</option>
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Procedimento</label>
+
+<input type="text" placeholder="Digite o procedimento">
+
+</div>
+
+<div class="form-group">
+
+<label>Data</label>
+
+<input type="date">
+
+</div>
+
+<div class="form-group">
+
+<label>Horário</label>
+
+<input type="time">
+
+</div>
+
+<div class="form-group">
+
+<label>Observações</label>
+
+<textarea placeholder="Digite observações..."></textarea>
+
+</div>
+
+<button>
+
+Confirmar Agendamento
+
+</button>
+
+</div>
+
+</div>
+
+</main>
+
+</body>
+
+</html>
