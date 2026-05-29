@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perfil do Pet - Carteira Pet</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+background:#f6f7f6;
+color:#333;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:320px;
+min-height:100vh;
+background:white;
+padding:25px;
+border-right:1px solid #eee;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.logo{
+display:flex;
+align-items:flex-start;
+gap:18px;
+margin-bottom:45px;
+}
+
+.logo-icon{
+width:80px;
+height:80px;
+border-radius:22px;
+background:#eaf5ea;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+color:#12922c;
+}
+
+.logo-text h1{
+font-size:33px;
+color:#12922c;
+}
+
+.logo-text p{
+font-size:18px;
+color:#666;
+margin-top:6px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.menu a{
+text-decoration:none;
+color:#222;
+padding:20px;
+border-radius:18px;
+display:flex;
+gap:18px;
+align-items:center;
+font-size:20px;
+transition:.3s;
+}
+
+.menu a:hover{
+background:#edf7ed;
+}
+
+.menu a i{
+color:#12922c;
+font-size:24px;
+}
+
+.menu .active{
+background:#edf7ed;
+font-weight:600;
+}
+
+/* REMINDER */
+
+.reminder{
+padding:25px;
+border-radius:28px;
+background:#eef7ee;
+border:1px solid #92d592;
+text-align:center;
+}
+
+.reminder-icon{
+width:85px;
+height:85px;
+background:white;
+margin:auto;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:35px;
+color:#12922c;
+margin-bottom:25px;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.reminder h2{
+color:#12922c;
+margin-bottom:10px;
+}
+
+.reminder p{
+color:#555;
+line-height:30px;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:35px;
+}
+
+/* TOP */
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.top h1{
+font-size:55px;
+color:#000;
+}
+
+.top p{
+margin-top:10px;
+font-size:18px;
+color:#666;
+}
+
+.edit-btn{
+background:#12922c;
+color:white;
+border:none;
+padding:18px 28px;
+border-radius:18px;
+font-size:18px;
+font-weight:600;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:12px;
+transition:.3s;
+}
+
+.edit-btn:hover{
+background:#0f7c24;
+}
+
+/* PROFILE */
+
+.profile-card{
+background:white;
+padding:35px;
+border-radius:30px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+margin-bottom:30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.profile-left{
+display:flex;
+align-items:center;
+gap:30px;
+}
+
+.pet-img{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:8px solid #dff0df;
+}
+
+.pet-info h2{
+font-size:60px;
+color:#12922c;
+margin-bottom:15px;
+}
+
+.pet-info p{
+font-size:22px;
+margin-bottom:12px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.pet-info i{
+color:#12922c;
+}
+
+/* STATUS */
+
+.status-box{
+background:#edf7ed;
+padding:25px 35px;
+border-radius:25px;
+text-align:center;
+}
+
+.status-box h2{
+font-size:45px;
+color:#12922c;
+margin-bottom:10px;
+}
+
+.status-box p{
+font-size:18px;
+color:#666;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.card-title{
+display:flex;
+align-items:center;
+gap:15px;
+font-size:28px;
+margin-bottom:30px;
+color:#12922c;
+}
+
+.card-title i{
+background:#edf7ed;
+padding:15px;
+border-radius:15px;
+}
+
+/* INFO */
+
+.info-list{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.info-item{
+display:flex;
+justify-content:space-between;
+padding-bottom:18px;
+border-bottom:1px solid #eee;
+}
+
+.info-item:last-child{
+border:none;
+padding-bottom:0;
+}
+
+.info-item p{
+color:#666;
+}
+
+.info-item h3{
+font-size:18px;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.stat-box{
+background:#f8f8f8;
+padding:25px;
+border-radius:20px;
+text-align:center;
+}
+
+.stat-box h2{
+font-size:40px;
+color:#12922c;
+margin-bottom:10px;
+}
+
+.stat-box p{
+color:#666;
+}
+
+/* OBS */
+
+.obs{
+background:#f7fff7;
+border:1px solid #d8f0d8;
+padding:25px;
+border-radius:22px;
+line-height:32px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1200px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.profile-card{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+@media(max-width:900px){
+
+.sidebar{
+display:none;
+}
+
+.top{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+.profile-left{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.pet-info h2{
+font-size:45px;
+}
+
+.pet-info p{
+font-size:18px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div>
+
+<div class="logo">
+
+<div class="logo-icon">
+<i class="fa-solid fa-paw"></i>
+</div>
+
+<div class="logo-text">
+<h1>Carteira Pet</h1>
+<p>Controle inteligente pet</p>
+</div>
+
+</div>
+
+<nav class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-house"></i>
+Início
+</a>
+
+<a href="vacinas.html">
+<i class="fa-solid fa-syringe"></i>
+Vacinas
+</a>
+
+<a href="historico.html">
+<i class="fa-solid fa-file-medical"></i>
+Histórico
+</a>
+
+<a href="agendamentos.html">
+<i class="fa-solid fa-calendar-days"></i>
+Agendamentos
+</a>
+
+<a class="active" href="perfilpet.html">
+<i class="fa-solid fa-dog"></i>
+Perfil do Pet
+</a>
+
+<a href="configuracoes.html">
+<i class="fa-solid fa-gear"></i>
+Configurações
+</a>
+
+</nav>
+
+</div>
+
+<div class="reminder">
+
+<div class="reminder-icon">
+<i class="fa-solid fa-heart"></i>
+</div>
+
+<h2>Saúde em Dia</h2>
+
+<p>
+
+Acompanhe todas as informações importantes do seu pet em um só lugar.
+
+</p>
+
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<!-- TOP -->
+
+<div class="top">
+
+<div>
+
+<h1>Perfil do Pet</h1>
+
+<p>
+Informações completas do animal
+</p>
+
+</div>
+
+<button class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Editar Perfil
+
+</button>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="profile-card">
+
+<div class="profile-left">
+
+<img
+class="pet-img"
+src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=600"
+alt="Thor">
+
+<div class="pet-info">
+
+<h2>
+Thor
+<i class="fa-solid fa-paw"></i>
+</h2>
+
+<p>
+<i class="fa-solid fa-dog"></i>
+Golden Retriever
+</p>
+
+<p>
+<i class="fa-solid fa-venus-mars"></i>
+Macho
+</p>
+
+<p>
+<i class="fa-solid fa-calendar"></i>
+3 anos
+</p>
+
+<p>
+<i class="fa-solid fa-weight-scale"></i>
+28kg
+</p>
+
+<p>
+<i class="fa-solid fa-palette"></i>
+Dourado
+</p>
+
+</div>
+
+</div>
+
+<div class="status-box">
+
+<h2>100%</h2>
+
+<p>Vacinação em dia</p>
+
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid">
+
+<!-- DADOS -->
+
+<div class="card">
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-circle-info"></i>
+
+Informações Gerais
+
+</h2>
+
+<div class="info-list">
+
+<div class="info-item">
+
+<p>Nome</p>
+
+<h3>Thor</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Raça</p>
+
+<h3>Golden Retriever</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Sexo</p>
+
+<h3>Macho</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Idade</p>
+
+<h3>3 anos</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Peso</p>
+
+<h3>28kg</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Microchip</p>
+
+<h3>#45872199</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RESPONSÁVEL -->
+
+<div class="card">
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-user"></i>
+
+Responsável
+
+</h2>
+
+<div class="info-list">
+
+<div class="info-item">
+
+<p>Nome</p>
+
+<h3>Lara Dias</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Email</p>
+
+<h3>lara@email.com</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Telefone</p>
+
+<h3>(34)99999-9999</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Cidade</p>
+
+<h3>Uberlândia - MG</h3>
+
+</div>
+
+<div class="info-item">
+
+<p>Endereço</p>
+
+<h3>Rua das Flores, 120</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ESTATÍSTICAS -->
+
+<div class="card">
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Estatísticas
+
+</h2>
+
+<div class="stats">
+
+<div class="stat-box">
+
+<h2>8</h2>
+
+<p>Vacinas Aplicadas</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2>2</h2>
+
+<p>Consultas no Ano</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2>1</h2>
+
+<p>Agendamentos</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2>0</h2>
+
+<p>Pendências</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- OBSERVAÇÕES -->
+
+<div class="card">
+
+<h2 class="card-title">
+
+<i class="fa-solid fa-notes-medical"></i>
+
+Observações Médicas
+
+</h2>
+
+<div class="obs">
+
+<p>
+
+Thor possui ótima condição física e mantém todas as vacinas atualizadas.
+Sem histórico de alergias medicamentosas ou doenças crônicas.
+
+</p>
+
+<br>
+
+<p>
+
+Recomendado acompanhamento veterinário anual e manutenção da rotina preventiva.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</body>
+
+</html>
