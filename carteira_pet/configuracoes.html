@@ -355,7 +355,7 @@ Dados do Usuário
 
 <label>Nome</label>
 
-<input type="text" value="Lara Dias">
+<input id="cfgNome" type="text" value="Lara Dias">
 
 </div>
 
@@ -363,7 +363,7 @@ Dados do Usuário
 
 <label>Email</label>
 
-<input type="email" value="lara@email.com">
+<input id="cfgEmail" type="email" value="lara@email.com">
 
 </div>
 
@@ -371,7 +371,7 @@ Dados do Usuário
 
 <label>Telefone</label>
 
-<input type="text" value="(34)99999-9999">
+<input id="cfgTelefone" type="text" value="(34)99999-9999">
 
 </div>
 
@@ -379,13 +379,13 @@ Dados do Usuário
 
 <label>Cidade</label>
 
-<input type="text" value="Uberlândia - MG">
+<input id="cfgCidade" type="text" value="Uberlândia - MG">
 
 </div>
 
 </div>
 
-<button>
+<button id="btnSalvarPerfil">
 
 Salvar Alterações
 
@@ -417,7 +417,7 @@ Notificações
 
 </div>
 
-<div class="toggle"></div>
+<div class="toggle" id="togVacinas" data-on="true"></div>
 
 </div>
 
@@ -431,7 +431,7 @@ Notificações
 
 </div>
 
-<div class="toggle"></div>
+<div class="toggle" id="togAgendamentos" data-on="true"></div>
 
 </div>
 
@@ -445,7 +445,7 @@ Notificações
 
 </div>
 
-<div class="toggle"></div>
+<div class="toggle" id="togMarketing" data-on="false" style="background:#ccc;"></div>
 
 </div>
 
@@ -459,13 +459,13 @@ Notificações
 
 </div>
 
-<div class="toggle"></div>
+<div class="toggle" id="togDark" data-on="false" style="background:#ccc;"></div>
 
 </div>
 
 </div>
 
-<button>
+<button id="btnSalvarNotif">
 
 Salvar Preferências
 
@@ -491,7 +491,7 @@ Segurança
 
 <label>Senha Atual</label>
 
-<input type="password">
+<input id="senhaAtual" type="password">
 
 </div>
 
@@ -499,7 +499,7 @@ Segurança
 
 <label>Nova Senha</label>
 
-<input type="password">
+<input id="novaSenha" type="password">
 
 </div>
 
@@ -507,13 +507,13 @@ Segurança
 
 <label>Confirmar Senha</label>
 
-<input type="password">
+<input id="confirmarSenha" type="password">
 
 </div>
 
 </div>
 
-<button>
+<button id="btnAlterarSenha">
 
 Alterar Senha
 
@@ -539,7 +539,7 @@ Preferências do Sistema
 
 <label>Idioma</label>
 
-<select>
+<select id="cfgIdioma">
 <option>Português</option>
 <option>English</option>
 </select>
@@ -550,7 +550,7 @@ Preferências do Sistema
 
 <label>Formato de Data</label>
 
-<select>
+<select id="cfgFormato">
 <option>DD/MM/AAAA</option>
 <option>MM/DD/AAAA</option>
 </select>
@@ -561,7 +561,7 @@ Preferências do Sistema
 
 <label>Fuso Horário</label>
 
-<select>
+<select id="cfgFuso">
 <option>Brasília (GMT-3)</option>
 </select>
 
@@ -569,7 +569,7 @@ Preferências do Sistema
 
 </div>
 
-<button>
+<button id="btnSalvarSistema">
 
 Salvar Configurações
 
@@ -580,6 +580,107 @@ Salvar Configurações
 </div>
 
 </main>
+
+<script src="api.js"></script>
+<script>
+const uid = () => localStorage.getItem('usuarioId') || 1;
+
+// ── Carregar dados salvos ao abrir a página ──
+async function carregarConfiguracoes() {
+  const { ok, data } = await get('/configuracoes/' + uid());
+  if (!ok || !data || !data.usuarioId) return;
+
+  if (data.nome)     document.getElementById('cfgNome').value     = data.nome;
+  if (data.email)    document.getElementById('cfgEmail').value    = data.email;
+  if (data.telefone) document.getElementById('cfgTelefone').value = data.telefone;
+  if (data.cidade)   document.getElementById('cfgCidade').value   = data.cidade;
+  if (data.idioma)   document.getElementById('cfgIdioma').value   = data.idioma;
+  if (data.formato)  document.getElementById('cfgFormato').value  = data.formato;
+
+  if (data.notificacoes) {
+    const n = data.notificacoes;
+    setToggle('togVacinas',     n.vacinas);
+    setToggle('togAgendamentos', n.agendamentos);
+    setToggle('togMarketing',   n.marketing);
+    setToggle('togDark',        n.dark);
+  }
+}
+
+function setToggle(id, on) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.dataset.on = String(!!on);
+  el.style.background = on ? '#12922c' : '#ccc';
+}
+
+carregarConfiguracoes();
+
+// Toggles interativos
+document.querySelectorAll('.toggle').forEach(tog => {
+  tog.addEventListener('click', () => {
+    const on = tog.dataset.on === 'true';
+    tog.dataset.on = String(!on);
+    tog.style.background = !on ? '#12922c' : '#ccc';
+  });
+});
+
+// Salvar dados do usuário
+document.getElementById('btnSalvarPerfil').addEventListener('click', async () => {
+  const { ok, data } = await post('/configuracoes', {
+    usuarioId: uid(),
+    nome: document.getElementById('cfgNome').value,
+    email: document.getElementById('cfgEmail').value,
+    telefone: document.getElementById('cfgTelefone').value,
+    cidade: document.getElementById('cfgCidade').value
+  });
+  toast(ok ? 'Dados salvos com sucesso!' : (data.erro || 'Erro ao salvar.'), ok);
+});
+
+// Salvar preferências de notificação
+document.getElementById('btnSalvarNotif').addEventListener('click', async () => {
+  const { ok, data } = await post('/configuracoes', {
+    usuarioId: uid(),
+    notificacoes: {
+      vacinas: document.getElementById('togVacinas').dataset.on === 'true',
+      agendamentos: document.getElementById('togAgendamentos').dataset.on === 'true',
+      marketing: document.getElementById('togMarketing').dataset.on === 'true',
+      dark: document.getElementById('togDark').dataset.on === 'true'
+    }
+  });
+  toast(ok ? 'Preferências salvas!' : (data.erro || 'Erro ao salvar.'), ok);
+});
+
+// Alterar senha
+document.getElementById('btnAlterarSenha').addEventListener('click', async () => {
+  const senhaAtual = document.getElementById('senhaAtual').value;
+  const novaSenha = document.getElementById('novaSenha').value;
+  const confirmar = document.getElementById('confirmarSenha').value;
+
+  if (!senhaAtual || !novaSenha) { toast('Preencha todos os campos de senha.', false); return; }
+  if (novaSenha !== confirmar) { toast('A nova senha e a confirmação não coincidem.', false); return; }
+
+  const { ok, data } = await post('/configuracoes', { usuarioId: uid(), senhaAtual, novaSenha });
+  if (ok) {
+    toast('Senha alterada com sucesso!');
+    document.getElementById('senhaAtual').value = '';
+    document.getElementById('novaSenha').value = '';
+    document.getElementById('confirmarSenha').value = '';
+  } else {
+    toast(data.erro || 'Erro ao alterar senha.', false);
+  }
+});
+
+// Salvar configurações do sistema
+document.getElementById('btnSalvarSistema').addEventListener('click', async () => {
+  const { ok, data } = await post('/configuracoes', {
+    usuarioId: uid(),
+    idioma: document.getElementById('cfgIdioma').value,
+    formato: document.getElementById('cfgFormato').value,
+    fuso: document.getElementById('cfgFuso').value
+  });
+  toast(ok ? 'Configurações salvas!' : (data.erro || 'Erro ao salvar.'), ok);
+});
+</script>
 
 </body>
 </html>

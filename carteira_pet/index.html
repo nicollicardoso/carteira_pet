@@ -743,19 +743,20 @@ Agendar Vacina
 <label>Nome da vacina</label>
 
 <input
+id="idxVacina"
 type="text"
 placeholder="Digite a vacina"
 >
 
 <label>Data</label>
 
-<input type="date">
+<input id="idxData" type="date">
 
 <label>Horário</label>
 
-<input type="time">
+<input id="idxHorario" type="time">
 
-<button>
+<button id="btnIdxAgendar">
 
 Confirmar Agendamento
 
@@ -780,6 +781,27 @@ O cliente receberá um aviso automaticamente.
 </div>
 
 </main>
+
+<script src="api.js"></script>
+<script>
+document.getElementById('btnIdxAgendar').addEventListener('click', async () => {
+  const nome = document.getElementById('idxVacina').value.trim();
+  const data = document.getElementById('idxData').value;
+  const horario = document.getElementById('idxHorario').value;
+
+  if (!nome || !data || !horario) { toast('Preencha todos os campos.', false); return; }
+
+  const { ok, data: res } = await post('/agendamentos', { tipo: 'Vacina', procedimento: nome, data, horario });
+  if (ok) {
+    toast('Agendamento confirmado!');
+    document.getElementById('idxVacina').value = '';
+    document.getElementById('idxData').value = '';
+    document.getElementById('idxHorario').value = '';
+  } else {
+    toast(res.erro || 'Erro ao salvar.', false);
+  }
+});
+</script>
 
 </body>
 </html>

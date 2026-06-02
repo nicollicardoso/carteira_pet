@@ -465,7 +465,7 @@ Controle completo das vacinas do seu pet
 
 </div>
 
-<button class="add-btn">
+<button class="add-btn" id="btnNovaVacina">
 
 <i class="fa-solid fa-plus"></i>
 
@@ -537,221 +537,145 @@ Nova Vacina
 
 <!-- LISTA -->
 
-<div class="vaccine-list">
-
-<!-- V10 -->
-
-<div class="vaccine-card">
-
-<div class="vaccine-left">
-
-<div class="vaccine-icon">
-V10
-</div>
-
-<div class="vaccine-info">
-
-<h2>Vacina Polivalente</h2>
-
-<p>
-
-Proteção contra cinomose, hepatite infecciosa,
-parvovirose e outras doenças virais.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="vaccine-details">
-
-<div class="detail-box">
-
-<p>Aplicação</p>
-
-<h3>25/05/2025</h3>
-
-</div>
-
-<div class="detail-box">
-
-<p>Vencimento</p>
-
-<h3>25/05/2026</h3>
-
-</div>
-
-<div class="status warning">
-
-PRÓXIMA
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ANTIRRÁBICA -->
-
-<div class="vaccine-card">
-
-<div class="vaccine-left">
-
-<div class="vaccine-icon">
-RA
-</div>
-
-<div class="vaccine-info">
-
-<h2>Antirrábica</h2>
-
-<p>
-
-Proteção contra o vírus da raiva.
-Vacina obrigatória anual.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="vaccine-details">
-
-<div class="detail-box">
-
-<p>Aplicação</p>
-
-<h3>10/01/2026</h3>
-
-</div>
-
-<div class="detail-box">
-
-<p>Vencimento</p>
-
-<h3>10/01/2027</h3>
-
-</div>
-
-<div class="status ok">
-
-ATIVA
-
-</div>
-
-</div>
-
-</div>
-
-<!-- GIÁRDIA -->
-
-<div class="vaccine-card">
-
-<div class="vaccine-left">
-
-<div class="vaccine-icon">
-GI
-</div>
-
-<div class="vaccine-info">
-
-<h2>Giárdia</h2>
-
-<p>
-
-Auxilia na prevenção contra infecções intestinais causadas pela giárdia.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="vaccine-details">
-
-<div class="detail-box">
-
-<p>Aplicação</p>
-
-<h3>15/02/2026</h3>
-
-</div>
-
-<div class="detail-box">
-
-<p>Vencimento</p>
-
-<h3>15/02/2027</h3>
-
-</div>
-
-<div class="status ok">
-
-ATIVA
-
-</div>
-
-</div>
-
-</div>
-
-<!-- LEISHMANIOSE -->
-
-<div class="vaccine-card">
-
-<div class="vaccine-left">
-
-<div class="vaccine-icon">
-LE
-</div>
-
-<div class="vaccine-info">
-
-<h2>Leishmaniose</h2>
-
-<p>
-
-Vacina preventiva contra a leishmaniose visceral canina.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="vaccine-details">
-
-<div class="detail-box">
-
-<p>Aplicação</p>
-
-<h3>02/07/2026</h3>
-
-</div>
-
-<div class="detail-box">
-
-<p>Agendada</p>
-
-<h3>09:30</h3>
-
-</div>
-
-<div class="status pending">
-
-AGENDADA
-
-</div>
-
-</div>
-
-</div>
-
+<div class="vaccine-list" id="listaVacinas">
+<p style="color:#999; text-align:center; padding:20px;">Carregando vacinas...</p>
 </div>
 
 </main>
+
+<!-- MODAL NOVA VACINA -->
+<div id="modalVacina" style="
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,.5); z-index:1000;
+  justify-content:center; align-items:center;
+">
+  <div style="
+    background:white; border-radius:25px;
+    padding:40px; width:480px; max-width:95%;
+  ">
+    <h2 style="color:#12922c; margin-bottom:25px; font-size:26px;">Nova Vacina</h2>
+
+    <label style="display:block; font-weight:500; margin-bottom:8px;">Nome da vacina</label>
+    <input id="vacNome" type="text" placeholder="Ex: V10, Antirrábica..." style="
+      width:100%; padding:16px; border-radius:14px;
+      border:1px solid #ddd; font-size:16px;
+      outline:none; margin-bottom:18px; font-family:Poppins,sans-serif;
+    ">
+
+    <label style="display:block; font-weight:500; margin-bottom:8px;">Data de aplicação</label>
+    <input id="vacData" type="date" style="
+      width:100%; padding:16px; border-radius:14px;
+      border:1px solid #ddd; font-size:16px;
+      outline:none; margin-bottom:18px; font-family:Poppins,sans-serif;
+    ">
+
+    <label style="display:block; font-weight:500; margin-bottom:8px;">Horário</label>
+    <input id="vacHorario" type="time" style="
+      width:100%; padding:16px; border-radius:14px;
+      border:1px solid #ddd; font-size:16px;
+      outline:none; margin-bottom:18px; font-family:Poppins,sans-serif;
+    ">
+
+    <label style="display:block; font-weight:500; margin-bottom:8px;">Veterinário (opcional)</label>
+    <input id="vacVet" type="text" placeholder="Nome do veterinário" style="
+      width:100%; padding:16px; border-radius:14px;
+      border:1px solid #ddd; font-size:16px;
+      outline:none; margin-bottom:28px; font-family:Poppins,sans-serif;
+    ">
+
+    <div style="display:flex; gap:14px;">
+      <button id="btnCancelarVacina" style="
+        flex:1; padding:16px; border:2px solid #ddd;
+        border-radius:14px; background:white;
+        color:#333; font-size:16px; font-weight:600; cursor:pointer;
+      ">Cancelar</button>
+      <button id="btnSalvarVacina" style="
+        flex:1; padding:16px; border:none;
+        border-radius:14px; background:#12922c;
+        color:white; font-size:16px; font-weight:600; cursor:pointer;
+      ">Salvar Vacina</button>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+function sigla(nome) {
+  return nome.trim().split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
+}
+
+function formatarDataBR(iso) {
+  const [ano, mes, dia] = iso.split('-');
+  return `${dia}/${mes}/${ano}`;
+}
+
+function renderVacinas(lista) {
+  const el = document.getElementById('listaVacinas');
+  if (!lista.length) {
+    el.innerHTML = '<p style="color:#999; text-align:center; padding:20px;">Nenhuma vacina cadastrada.</p>';
+    return;
+  }
+  el.innerHTML = lista.map(v => `
+    <div class="vaccine-card">
+      <div class="vaccine-left">
+        <div class="vaccine-icon">${sigla(v.nome)}</div>
+        <div class="vaccine-info">
+          <h2>${v.nome}</h2>
+          <p>${v.veterinario ? 'Vet: ' + v.veterinario : ''}${v.observacoes ? ' · ' + v.observacoes : ''}</p>
+        </div>
+      </div>
+      <div class="vaccine-details">
+        <div class="detail-box"><p>Aplicação</p><h3>${formatarDataBR(v.data)}</h3></div>
+        ${v.horario ? `<div class="detail-box"><p>Horário</p><h3>${v.horario}</h3></div>` : ''}
+        <div class="status ok">ATIVA</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function carregarVacinas() {
+  const { ok, data } = await get('/vacinas');
+  if (ok) renderVacinas(data);
+}
+
+carregarVacinas();
+
+const modal = document.getElementById('modalVacina');
+
+document.getElementById('btnNovaVacina').addEventListener('click', () => {
+  modal.style.display = 'flex';
+});
+
+document.getElementById('btnCancelarVacina').addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) modal.style.display = 'none';
+});
+
+document.getElementById('btnSalvarVacina').addEventListener('click', async () => {
+  const nome = document.getElementById('vacNome').value.trim();
+  const data = document.getElementById('vacData').value;
+  const horario = document.getElementById('vacHorario').value;
+  const veterinario = document.getElementById('vacVet').value.trim();
+
+  if (!nome || !data) { toast('Informe o nome e a data da vacina.', false); return; }
+
+  const { ok, data: res } = await post('/vacinas', { nome, data, horario, veterinario });
+  if (ok) {
+    toast('Vacina registrada com sucesso!');
+    modal.style.display = 'none';
+    document.getElementById('vacNome').value = '';
+    document.getElementById('vacData').value = '';
+    document.getElementById('vacHorario').value = '';
+    document.getElementById('vacVet').value = '';
+    carregarVacinas();
+  } else {
+    toast(res.erro || 'Erro ao salvar vacina.', false);
+  }
+});
+</script>
 
 </body>
 </html>

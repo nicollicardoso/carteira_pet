@@ -484,146 +484,8 @@ Próximos Agendamentos
 
 </h2>
 
-<div class="appointment-list">
-
-<!-- ITEM -->
-
-<div class="appointment">
-
-<div class="app-left">
-
-<div class="app-icon">
-<i class="fa-solid fa-syringe"></i>
-</div>
-
-<div class="app-info">
-
-<h2>Vacina V10</h2>
-
-<p>
-Reforço anual da vacina polivalente
-</p>
-
-</div>
-
-</div>
-
-<div class="date-box">
-
-<p>Data</p>
-
-<h3>25/05</h3>
-
-</div>
-
-<div class="date-box">
-
-<p>Horário</p>
-
-<h3>10:00</h3>
-
-</div>
-
-<div class="status pending">
-
-PENDENTE
-
-</div>
-
-</div>
-
-<!-- ITEM -->
-
-<div class="appointment">
-
-<div class="app-left">
-
-<div class="app-icon">
-<i class="fa-solid fa-stethoscope"></i>
-</div>
-
-<div class="app-info">
-
-<h2>Consulta Veterinária</h2>
-
-<p>
-Avaliação geral do pet
-</p>
-
-</div>
-
-</div>
-
-<div class="date-box">
-
-<p>Data</p>
-
-<h3>02/06</h3>
-
-</div>
-
-<div class="date-box">
-
-<p>Horário</p>
-
-<h3>14:30</h3>
-
-</div>
-
-<div class="status confirmed">
-
-CONFIRMADO
-
-</div>
-
-</div>
-
-<!-- ITEM -->
-
-<div class="appointment">
-
-<div class="app-left">
-
-<div class="app-icon">
-<i class="fa-solid fa-shield-dog"></i>
-</div>
-
-<div class="app-info">
-
-<h2>Antirrábica</h2>
-
-<p>
-Aplicação anual obrigatória
-</p>
-
-</div>
-
-</div>
-
-<div class="date-box">
-
-<p>Data</p>
-
-<h3>18/06</h3>
-
-</div>
-
-<div class="date-box">
-
-<p>Horário</p>
-
-<h3>09:00</h3>
-
-</div>
-
-<div class="status pending">
-
-PENDENTE
-
-</div>
-
-</div>
-
+<div class="appointment-list" id="listaAgendamentos">
+<p style="color:#999; text-align:center; padding:20px;">Carregando agendamentos...</p>
 </div>
 
 </div>
@@ -644,7 +506,7 @@ Novo Agendamento
 
 <label>Tipo</label>
 
-<select>
+<select id="agTipo">
 <option>Vacina</option>
 <option>Consulta</option>
 <option>Exame</option>
@@ -656,7 +518,7 @@ Novo Agendamento
 
 <label>Procedimento</label>
 
-<input type="text" placeholder="Digite o procedimento">
+<input id="agProcedimento" type="text" placeholder="Digite o procedimento">
 
 </div>
 
@@ -664,7 +526,7 @@ Novo Agendamento
 
 <label>Data</label>
 
-<input type="date">
+<input id="agData" type="date">
 
 </div>
 
@@ -672,7 +534,7 @@ Novo Agendamento
 
 <label>Horário</label>
 
-<input type="time">
+<input id="agHorario" type="time">
 
 </div>
 
@@ -680,11 +542,11 @@ Novo Agendamento
 
 <label>Observações</label>
 
-<textarea placeholder="Digite observações..."></textarea>
+<textarea id="agObs" placeholder="Digite observações..."></textarea>
 
 </div>
 
-<button>
+<button id="btnAgendar">
 
 Confirmar Agendamento
 
@@ -695,6 +557,71 @@ Confirmar Agendamento
 </div>
 
 </main>
+
+<script src="api.js"></script>
+<script>
+const iconesPorTipo = {
+  'Vacina': 'fa-syringe',
+  'Consulta': 'fa-stethoscope',
+  'Exame': 'fa-flask'
+};
+
+function formatarData(iso) {
+  const [ano, mes, dia] = iso.split('-');
+  return `${dia}/${mes}`;
+}
+
+function renderAgendamentos(lista) {
+  const el = document.getElementById('listaAgendamentos');
+  if (!lista.length) {
+    el.innerHTML = '<p style="color:#999; text-align:center; padding:20px;">Nenhum agendamento cadastrado.</p>';
+    return;
+  }
+  el.innerHTML = lista.map(a => `
+    <div class="appointment">
+      <div class="app-left">
+        <div class="app-icon"><i class="fa-solid ${iconesPorTipo[a.tipo] || 'fa-calendar'}"></i></div>
+        <div class="app-info">
+          <h2>${a.procedimento || a.tipo}</h2>
+          <p>${a.tipo}${a.observacoes ? ' · ' + a.observacoes : ''}</p>
+        </div>
+      </div>
+      <div class="date-box"><p>Data</p><h3>${formatarData(a.data)}</h3></div>
+      <div class="date-box"><p>Horário</p><h3>${a.horario}</h3></div>
+      <div class="status pending">PENDENTE</div>
+    </div>
+  `).join('');
+}
+
+async function carregarAgendamentos() {
+  const { ok, data } = await get('/agendamentos');
+  if (ok) renderAgendamentos(data);
+}
+
+carregarAgendamentos();
+
+document.getElementById('btnAgendar').addEventListener('click', async () => {
+  const tipo = document.getElementById('agTipo').value;
+  const procedimento = document.getElementById('agProcedimento').value.trim();
+  const data = document.getElementById('agData').value;
+  const horario = document.getElementById('agHorario').value;
+  const observacoes = document.getElementById('agObs').value.trim();
+
+  if (!data || !horario) { toast('Preencha a data e o horário.', false); return; }
+
+  const { ok, data: res } = await post('/agendamentos', { tipo, procedimento, data, horario, observacoes });
+  if (ok) {
+    toast('Agendamento confirmado!');
+    document.getElementById('agProcedimento').value = '';
+    document.getElementById('agData').value = '';
+    document.getElementById('agHorario').value = '';
+    document.getElementById('agObs').value = '';
+    carregarAgendamentos();
+  } else {
+    toast(res.erro || 'Erro ao salvar agendamento.', false);
+  }
+});
+</script>
 
 </body>
 

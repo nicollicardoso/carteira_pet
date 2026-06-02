@@ -272,7 +272,7 @@ Acompanhe vacinas, agendamentos e mantenha a saúde do seu animal sempre protegi
 Faça login para acessar o sistema
 </p>
 
-<form action="index.html">
+<form id="loginForm">
 
 <!-- EMAIL -->
 
@@ -285,6 +285,7 @@ Faça login para acessar o sistema
 <i class="fa-solid fa-envelope"></i>
 
 <input
+id="emailInput"
 type="email"
 placeholder="Digite seu email"
 required
@@ -305,6 +306,7 @@ required
 <i class="fa-solid fa-lock"></i>
 
 <input
+id="senhaInput"
 type="password"
 placeholder="Digite sua senha"
 required
@@ -344,7 +346,7 @@ Suporte
 
 Não possui conta?
 
-<a href="#">
+<a href="#" id="linkCadastro">
 
 Criar conta
 
@@ -355,6 +357,38 @@ Criar conta
 </div>
 
 </form>
+
+<script src="api.js"></script>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value.trim();
+  const senha = document.getElementById('senhaInput').value;
+  const { ok, data } = await post('/login', { email, senha });
+  if (ok) {
+    localStorage.setItem('usuarioId', data.usuario.id);
+    localStorage.setItem('usuarioEmail', data.usuario.email);
+    toast('Login realizado com sucesso!');
+    setTimeout(() => window.location.href = 'index.html', 800);
+  } else {
+    toast(data.erro || 'Erro ao fazer login.', false);
+  }
+});
+
+document.getElementById('linkCadastro').addEventListener('click', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value.trim();
+  const senha = document.getElementById('senhaInput').value;
+  if (!email || !senha) { toast('Preencha email e senha para criar conta.', false); return; }
+  const { ok, data } = await post('/cadastro', { email, senha });
+  if (ok) {
+    toast('Conta criada! Fazendo login...');
+    setTimeout(() => window.location.href = 'index.html', 1000);
+  } else {
+    toast(data.erro || 'Erro ao criar conta.', false);
+  }
+});
+</script>
 
 </div>
 
